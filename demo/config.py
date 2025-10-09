@@ -14,6 +14,16 @@ RAW_LABELS_DIR = os.path.join(DATA_DIR, "raw", "labels")
 CLASSES_FILE = os.path.join(DATA_DIR, "classes.txt")
 
 # ============================================================================
+# MODEL PATHS
+# ============================================================================
+# Point this to your trained model
+# After training, it will be at: runs/package_defect_detection/train_XXXXXX/weights/best.pt
+MODEL_PATH = os.path.join(PROJECT_ROOT, "runs", "package_defect_detection", "train_20251008_203202", "weights", "best.pt")
+
+# If model doesn't exist, we'll use pre-labeled data
+MODEL_AVAILABLE = os.path.exists(MODEL_PATH) if MODEL_PATH else False
+
+# ============================================================================
 # CLASS DEFINITIONS
 # ============================================================================
 CLASS_NAMES = [
@@ -39,7 +49,7 @@ CLASS_COLORS = {
 # ============================================================================
 # UI SETTINGS
 # ============================================================================
-WINDOW_TITLE = "Package Defect Detection - Demo v1.0"
+WINDOW_TITLE = "Package Defect Detection - Demo v2.0 (AI Inference)"
 CANVAS_WIDTH = 800
 CANVAS_HEIGHT = 600
 
@@ -49,22 +59,23 @@ LABEL_FONT_SCALE = 0.6
 LABEL_THICKNESS = 2
 
 # ============================================================================
+# INFERENCE SETTINGS
+# ============================================================================
+CONFIDENCE_THRESHOLD = 0.25  # Minimum confidence to show detection
+IOU_THRESHOLD = 0.45         # Non-maximum suppression threshold
+IMG_SIZE = 640               # Model input size
+
+# ============================================================================
 # DEFAULT STATES
 # ============================================================================
 # All classes visible by default
 DEFAULT_VISIBLE_CLASSES = {i: True for i in range(len(CLASS_NAMES))}
 
 # ============================================================================
-# FUTURE EXPANSION PLACEHOLDERS
+# VERDICT LOGIC SETTINGS
 # ============================================================================
-# Model inference settings (for future use)
-MODEL_PATH = None  # Will point to trained model later
-CONFIDENCE_THRESHOLD = 0.5
-IOU_THRESHOLD = 0.4
-
-# Verdict logic settings (for future use)
+# Define verdict based on detected defects
 VERDICT_RULES = {
-    "optimal": "No defects detected",
-    "good": "Minor defects acceptable",
-    "deformed": "Significant defects found"
+    "pass": ["optimal", "good"],           # Package passes if only these
+    "fail": ["deformed", "dented", "poked", "cut"]  # Fails if any of these
 }

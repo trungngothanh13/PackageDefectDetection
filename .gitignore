@@ -206,5 +206,6 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# Ignore training data
+# Ignore training data and results
 data/
+# runs/

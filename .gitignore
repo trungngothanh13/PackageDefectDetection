@@ -206,7 +206,20 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# Ignore training data and results and virtual environment for PDD
-data/
-PDD_VENV/
-runs/package_quality_classification/train_20251019_223025/weights
+# Ignore training data and virtual environment folders
+data/*
+PDD_VENV/*
+
+# Ignore all quality classification training runs except a specific one (train_20251031_133632)
+runs/package_quality_classification/*
+!runs/package_quality_classification/train_20251031_133632/
+# Ignore all files in weights folder except best.pt
+runs/package_quality_classification/train_20251031_133632/weights/*
+!runs/package_quality_classification/train_20251031_133632/weights/best.pt
+
+# Ignore all defects detection training runs except a specific one (train_20251101_130621)
+runs/package_defect_detection/*
+!runs/package_defect_detection/train_20251101_130621/
+# Ignore all files in weights folder except best.pt
+runs/package_defect_detection/train_20251101_130621/weights/*
+!runs/package_defect_detection/train_20251101_130621/weights/best.pt

@@ -26,12 +26,12 @@ MODEL_SIZE = "yolov8l-cls.pt"
 
 # Training hyperparameters
 EPOCHS = 100              # Number of training epochs
-BATCH_SIZE = 16           # Batch size (adjust based on GPU memory: 8/16/32/64)
+BATCH_SIZE = 12           # Batch size (adjust based on GPU memory: 8/16/32/64)
 IMG_SIZE = 320            # Image size for classification (224 is standard)
 DEVICE = 0                # 0 for GPU, 'cpu' for CPU
 
 # Training settings
-PATIENCE = 100             # Early stopping patience (stops if no improvement for N epochs)
+PATIENCE = 30             # Early stopping patience (stops if no improvement for N epochs)
 SAVE_PERIOD = 10          # Save checkpoint every N epochs
 
 # Project organization
@@ -136,19 +136,19 @@ def train_model():
         save_period=SAVE_PERIOD,
         
         # Optimization
-        optimizer='AdamW',      # Changed from 'auto' - AdamW often better
+        optimizer='AdamW',      # Changed from 'auto'
         lr0=0.0005,            # Lower initial learning rate (was 0.001)
         lrf=0.001,             # Lower final learning rate (was 0.01)
         momentum=0.937,
         weight_decay=0.001,    # Increased regularization (was 0.0005)
         
-        # Data augmentation - STRONGER augmentation
+        # Data augmentation
         augment=True,
-        hsv_h=0.03,         # Increased hue (was 0.015)
+        hsv_h=0.02,         # Increased hue (was 0.015)
         hsv_s=0.8,          # Increased saturation (was 0.7)
         hsv_v=0.5,          # Increased value (was 0.4)
         degrees=15,         # More rotation (was 10)
-        translate=0.2,      # More translation (was 0.1)
+        translate=0.15,      # More translation (was 0.1)
         scale=0.7,          # More scaling (was 0.5)
         flipud=0.0,         # Flip up-down (probability)
         fliplr=0.5,         # Flip left-right (probability)
@@ -160,7 +160,8 @@ def train_model():
         # Other
         verbose=True,
         seed=42,            # For reproducibility
-        workers=4           # Number of data loading workers
+        workers=4,           # Number of data loading workers
+        dropout=0.3          # Added dropout for regularization
     )
     
     print("\n" + "=" * 70)

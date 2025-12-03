@@ -10,7 +10,7 @@ PDD_VENV/scripts/activate
 pip install ultralytics opencv-python pillow
 
 cd demo
-python classification_demo
+python classification_demo.py
 python detection_demo.py
 ```
 
